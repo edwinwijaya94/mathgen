@@ -1,5 +1,13 @@
-extends layout
+<!DOCTYPE html>
+<html>
 
-block content
-  h1= title
-  p Welcome to #{title}
+<head>
+  <title><%= title %></title>
+</head>
+
+<body>
+<%- include('header') -%>
+<h3> Welcome to Mathgen <h3>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+</head>
+
+<body>
+<%- include('../header') -%>
+
+<!-- FORM -->
+  <div class="col-md-8 col-md-offset-2">
+    <div>
+      <h3>Create New Problem</h3>
+    </div>
+    <div>
+      <form id="problem-form" onsubmit="createProblem()">
+        Problem Set:<br>
+        <input id="problem-set" class="form-control" type="text" name="problemSet" required>
+        <br>
+        Name:<br>
+        <input id="name" class="form-control" type="text" name="name" required>
+        <br>
+        Template:<br>
+        <textarea rows="3" id="template" class="form-control" name="template" required></textarea>
+        <br>
+        Seed Value:<br>
+        <input id="seed-value" class="form-control" type="text" name="seedValue" required>
+        <br>
+        Formula:<br>
+        <input id="formula" class="form-control" type="text" name="formula" required>
+        <br><br>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+    <div>
+  </div>
+</body>
+
+</html>
+
