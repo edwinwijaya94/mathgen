@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+</head>
+
+<body>
+<%- include('../header') -%>
+
+  <div class="col-md-8 col-md-offset-2">
+    <div>
+      <h3>Problems Available</h3>
+    </div id="problem-div">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 id="problem-set" class="panel-title">Panel title</h3>
+        </div>
+        <% for(var i=0; i < data.length; i++) { %>
+          <div id="problem-content" class="panel-body">
+            <div id="name"><%= data[i].name %></div>
+            <div id="template"><pre><%= data[i].template %></pre></div>
+            <a href="/problem/generate?problem_id=<%= data[i]._id%>" class="btn btn-success" role="button">Generate</a>
+          </div>
+        <% } %>
+      </div>
+    <div>
+      
+    <div>
+  </div>
+</body>
+
+</html>
+

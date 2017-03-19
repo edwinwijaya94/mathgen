@@ -5,21 +5,11 @@ var exports = {};
 
 exports.init = function() {
 	mongoose.connect('mongodb://localhost/mathgen');
-	console.log(chalk.green('MongoDB: init success'));
-}
-
-exports.getModel = function(mongoose) {
-    var problemSchema = mongoose.Schema({
-    	problemSet: String,
-        name: String,
-    	template: String,
-    	seedValue: [Number],
-    	formula: String
-	});
-    var models = {
-      Problem : mongoose.model('Problem', problemSchema)
-    };
-    return models;
+    var db = mongoose.connection;
+    db.on('error', console.error.bind(console, 'connection error:'));
+    db.once('open', function() {
+        console.log(chalk.green('MongoDB: init success'));
+    });
 }
 
 module.exports = exports;

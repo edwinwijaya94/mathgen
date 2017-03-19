@@ -30,7 +30,7 @@ function createProblem() {
         success:function(data, textStatus, jqXHR) 
         {
             if(data.status == "success") {
-            	// window.location.replace("/");
+            	window.location.replace("/");
             }
         }
     });

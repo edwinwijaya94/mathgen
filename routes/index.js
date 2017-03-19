@@ -7,6 +7,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.use('/users', require('./users'));
-router.use('/problems', require('./problems'));
+router.use('/problem', require('./problem'));
 
 module.exports = router;

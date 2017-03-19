@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+</head>
+
+<body>
+<%- include('../header') -%>
+
+  <div class="col-md-8 col-md-offset-2">
+    <div>
+      <h3>Problem ID: <%= data._id %> </h3>
+    </div id="problem-div">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 id="problem-set" class="panel-title"><%= data.problemSet %></h3>
+        </div>
+          <div id="problem-content" class="panel-body">
+            <div id="name"><%= data.name %></div>
+            <div id="template"><pre><%= data.problem %></pre></div>
+          </div>
+      </div>
+    <div>
+      
+    <div>
+  </div>
+</body>
+
+</html>
