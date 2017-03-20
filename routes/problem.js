@@ -9,11 +9,11 @@ router.get('/create', function(req, res, next) {
 
 /* show problem list */
 router.get('/view', function(req, res, next) {
-
+    
 	//GET /api/problem
     var options = {
         host : 'localhost',
-        port : 3000,
+        port : process.env.NODE_PORT || 3000,
         path : '/api/problem',
         method : 'GET',
         headers: {'Content-Type':'application/json'}
@@ -46,7 +46,7 @@ router.get('/generate', function(req, res, next) {
     //GET /api/problem
     var options = {
         host : 'localhost',
-        port : 3000,
+        port : process.env.NODE_PORT || 3000,
         path : '/api/generator/generate?problem_id='+problemId,
         method : 'GET',
         headers: {'Content-Type':'application/json'}
