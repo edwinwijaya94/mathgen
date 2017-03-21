@@ -9,7 +9,6 @@ var mathjs = require('mathjs');
 router.post('/check', function(req, res) {
 	
 	var problemId = req.body.problemId;
-	console.log(chalk.blue(problemId));
 	var values = req.body.values;
   	var userAnswer = req.body.answer;
 

@@ -10,7 +10,9 @@ $(document).ready(function() {
 		$('#mathgen-nav > #problem').addClass('active');
 
     //event listener
-    $("#answer-form").on('submit', submitAnswer);
+    $("#problem-form").unbind('submit').bind('submit', submitProblem);
+    $("#answer-form").unbind('submit').bind('submit', submitAnswer);
+    $("#problem-delete").unbind('click').bind('click', deleteProblem);
 });
 
 function showAlert(message,alerttype) {
@@ -18,18 +20,34 @@ function showAlert(message,alerttype) {
     $('#alert-area').append('<div id="alertdiv" class="alert alert-' +  alerttype + '"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>');
 }
 
-function createProblem() {
+function submitProblem(e) {
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
 	var data = {};
-	data.problemSet = $('#problem-form > #problem-set').val();
-	data.name = $('#problem-form > #name').val();
+	data.course = $('#problem-form > #course').val();
+	data.topic = $('#problem-form > #topic').val();
 	data.template = $('#problem-form > #template').val();
 	data.seedValue = $('#problem-form > #seed-value').val();
 	data.formula = $('#problem-form > #formula').val();
 
+    //set request method
+    var type;
+    var pathname = window.location.pathname;
+    var patternCreate = new RegExp('/problem/create$');
+    var patternEdit = new RegExp('/problem/edit$');
+    if(patternCreate.test(pathname))
+        type = 'POST';
+    else if(patternEdit.test(pathname)) {
+        type = 'PATCH';
+        data.problemId = $('#problem-form > #problem-id').text();
+    }
+
 	$.ajax(
     {
         url : '/api/problem',
-        type: 'POST',
+        type: type,
         data : JSON.stringify(data),
         headers: {
 	        'Content-Type':'application/json'
@@ -37,7 +55,7 @@ function createProblem() {
         success:function(response, textStatus, jqXHR) 
         {
             if(response.status == "success") {
-            	window.location.replace("/");
+            	window.location.replace("/problem/view");
             }
         }
     });
@@ -46,6 +64,8 @@ function createProblem() {
 function submitAnswer(e) {
 
     e.preventDefault();
+    e.stopImmediatePropagation();
+    
 	var data = {};
 	data.problemId = $('#problem-id').text();
 	data.answer = $('#answer-form > #answer').val();
@@ -69,4 +89,29 @@ function submitAnswer(e) {
             }
         }
     });	
+};
+
+function deleteProblem(e) {
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    
+    var data = {};
+    data.problemId = $('#problem-delete').attr('data-problem-id');
+    
+    $.ajax(
+    {
+        url : '/api/problem',
+        type: 'DELETE',
+        data : JSON.stringify(data),
+        headers: {
+            'Content-Type':'application/json'
+        },
+        success:function(response, textStatus, jqXHR) 
+        {
+            if(response.status == "success") {
+                location.reload();
+            }
+        }
+    }); 
 };
