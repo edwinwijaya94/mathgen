@@ -12,7 +12,7 @@ $(document).ready(function() {
     //event listener
     $("#problem-form").unbind('submit').bind('submit', submitProblem);
     $("#answer-form").unbind('submit').bind('submit', submitAnswer);
-    $("#problem-delete").unbind('click').bind('click', deleteProblem);
+    $(".problem-delete").unbind('click').bind('click', deleteProblem);
 });
 
 function showAlert(message,alerttype) {
@@ -70,7 +70,7 @@ function submitAnswer(e) {
 	data.problemId = $('#problem-id').text();
 	data.answer = $('#answer-form > #answer').val();
 	data.values = $('#problem-content > #values').text();
-	console.log("submit answer");
+
 	$.ajax(
     {
         url : '/api/solver/check',
@@ -97,7 +97,7 @@ function deleteProblem(e) {
     e.stopImmediatePropagation();
     
     var data = {};
-    data.problemId = $('#problem-delete').attr('data-problem-id');
+    data.problemId = $(this).attr('data-problem-id');
     
     $.ajax(
     {
