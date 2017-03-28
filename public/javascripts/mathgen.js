@@ -26,7 +26,7 @@ function submitProblem(e) {
     e.stopImmediatePropagation();
 
 	var data = {};
-	data.course = $('#problem-form > #course').val();
+	data.course = $('#problem-form > #course option:selected').attr('data-course-id');
 	data.topic = $('#problem-form > #topic').val();
 	data.template = $('#problem-form > #template').val();
 	data.seedValue = $('#problem-form > #seed-value').val();

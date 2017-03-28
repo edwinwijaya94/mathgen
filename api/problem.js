@@ -1,14 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
+var Course = require('../model/course');
 var Problem = require('../model/problem');
 var chalk = require('chalk');
 
 // CRUD
 //create new problem
 router.post('/', function(req, res) {
+
 	var data = req.body;
-	console.log(chalk.blue(JSON.stringify(data)));
 	var problem = new Problem({
 						course: data.course,
 						topic: data.topic,
@@ -38,25 +39,28 @@ router.get('/', function(req, res) {
 	if(problemId != null)
 		query._id = problemId;
 
-	Problem.find(query, function (err, data) {
-		if (err) {
-			console.log(chalk.red(err));
-			res.json({
-				status: "error"
-			});
-		} else {
-			res.json({
-				status: "success",
-				data: data
-			})
-		}
-	});
+	Problem.
+		find(query).
+		populate('course', 'name').
+		exec(function (err, data) {
+			if (err) {
+				console.log(chalk.red(err));
+				res.json({
+					status: "error"
+				});
+			} else {
+				res.json({
+					status: "success",
+					data: data
+				})
+			}
+		});
 });
 
 //edit problem
 router.patch('/', function(req, res) {
+
 	var data = req.body;
-	console.log(chalk.blue(JSON.stringify(data)));
 	var query = { _id: data.problemId };
 	var updateData = { 	
 						course: data.course,
@@ -85,7 +89,6 @@ router.patch('/', function(req, res) {
 router.delete('/', function(req, res) {
 
 	var data = req.body;
-	console.log(chalk.blue(JSON.stringify(data)));
 	var query = { _id: data.problemId };
 	Problem.remove(query, function(err) {
 		if (err) {

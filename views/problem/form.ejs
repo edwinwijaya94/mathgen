@@ -17,7 +17,11 @@
       <form id="problem-form">
         <div id="problem-id" hidden><%= data ? data._id : '' %></div>
         Course:<br>
-        <input id="course" class="form-control" type="text" value="<%= data.course %>" required>
+        <select class="form-control" id="course">
+          <% for(var i=0; i < data.courseList.length; i++) { %>
+            <option data-course-id="<%= data.courseList[i]._id %>" <%= (data.course != null && data.courseList[i].name === data.course.name)? 'selected' : '' %> > <%= data.courseList[i].name %> </option>
+          <% } %>
+        </select>
         <br>
         Topic:<br>
         <input id="topic" class="form-control" type="text" value="<%= data.topic %>" required>

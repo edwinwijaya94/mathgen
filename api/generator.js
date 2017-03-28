@@ -8,7 +8,10 @@ var chalk = require('chalk');
 router.get('/generate', function(req, res) {
 
   	var problemId = req.query.problem_id;
-  	Problem.findOne({_id: problemId}, '_id course topic template seedValue', function (err, problem) {
+  	Problem.
+  	findOne({_id: problemId}, '_id course topic template seedValue').
+  	populate('course', 'name').
+  	exec( function (err, problem) {
 		if (err) {
 			console.log(chalk.red(err));
 			res.json({
