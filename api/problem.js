@@ -34,14 +34,26 @@ router.post('/', function(req, res) {
 // show problems
 router.get('/', function(req, res) {
 
-	var problemId = (req.query.problem_id != null) ? req.query.problem_id : null;
+	// var problemId = (req.query.problem_id != null) ? req.query.problem_id : null;
 	var query = {};
-	if(problemId != null)
-		query._id = problemId;
+	if(req.query.problem_id != null)
+		query._id = req.query.problem_id;
+
+
+	var populateOptions = {
+		path: 'course',
+		select: 'name -_id'
+	};
+	if(req.query.course != null) {
+		// query.course = {};
+		// query.course.name = req.query.course;
+		populateOptions.match = {};
+		populateOptions.match.name = req.query.course;
+	}
 
 	Problem.
 		find(query).
-		populate('course', 'name').
+		populate(populateOptions).
 		exec(function (err, data) {
 			if (err) {
 				console.log(chalk.red(err));
@@ -49,9 +61,12 @@ router.get('/', function(req, res) {
 					status: "error"
 				});
 			} else {
+				var problems = data.filter(function(problem) {
+					return problem.course != null;
+				})
 				res.json({
 					status: "success",
-					data: data
+					data: problems
 				})
 			}
 		});
@@ -62,6 +77,7 @@ router.patch('/', function(req, res) {
 
 	var data = req.body;
 	var query = { _id: data.problemId };
+	console.log(JSON.stringify(data));
 	var updateData = { 	
 						course: data.course,
 						topic: data.topic,

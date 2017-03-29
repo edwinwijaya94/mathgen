@@ -12,6 +12,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/javascripts/mathgen.js"></script>
 
+<!-- AngularJS -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+
 <!-- NAVIGATION BAR -->
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -30,15 +33,25 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul id="mathgen-nav" class="nav navbar-nav">
         <li id="home" class=""><a href="/">Home </a></li>
+        <!-- Course Menu -->
+        <li id="course-menu" class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Course <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/course/create">Create New</a></li>
+            <li><a href="/course">View All</a></li>
+          </ul>
+        </li>
         <!-- Problem Menu -->
-        <li id="problem" class="dropdown">
+        <li><a href="/problem/create">Create Problem</a></li>
+        <!-- <li id="problem-menu" class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Problem <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="/problem/create">Create New</a></li>
             <li><a href="/problem/view">View All</a></li>
             <li role="separator" class="divider"></li>
           </ul>
-        </li>
+        </li> -->
+        
       </ul>
       <!-- <form class="navbar-form navbar-left">
         <div class="form-group">

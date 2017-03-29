@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+</head>
+
+<body>
+<%- include('../header') -%>
+
+  <div class="col-md-8 col-md-offset-2">
+    <div>
+      <div class="col-md-6">
+        <h3>Courses</h3>
+      </div>
+      <div class="col-md-6" >
+        <form id="course-form" class="form-inline" style="float:right">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" placeholder="">
+          </div>
+          <button type="submit" class="btn btn-default btn-primary">Create Course</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-12" id="course-div">
+      <% for(var i=0; i < data.length; i++) { %>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="col-md-6">
+              <a href="/course/<%= data[i].name %>"> <%= data[i].name %> </a>
+            </div>
+            <div class="col-md-6">
+              <a href="/problem/edit?problem_id=<%= data[i]._id%>" class="btn btn-warning" role="button">Rename</a>
+              <button  id="course-delete" class="btn btn-danger course-delete" data-course-id="<%= data[i]._id%>" role="button">Delete</button>
+            </div>
+          </div>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</body>
+
+</html>
